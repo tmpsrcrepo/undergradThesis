@@ -1,4 +1,4 @@
-
+#Credit to Don Rude
 
 # Some color functions
 mygrey=function(x){
@@ -35,8 +35,6 @@ markbman=function(mydata) {
     # Find the "basket-man" noise based on some simple distance thresholds
 	
 	distt = sqrt(mydata$SC_x^2 + mydata$SC_y^2 + mydata$SC_z^2)
-#	noisy = distt>3.4898 & mydata$SC_x  < -0.99 | mydata$SC_y < -0.5 | mydata$SC_x > 1.59
-#	noisy = distt>3.4898 & mydata$SC_x  < -0.979 | mydata$SC_y < -0.5 | mydata$SC_x > 1.59
 	noisy = (distt>3.4898 & mydata$SC_x  < -0.901) | mydata$SC_y < -0.5 | mydata$SC_x > 1.59
 
 	return(noisy)
@@ -55,24 +53,8 @@ maketruth5 = function(mydata) {
 	truth5[mydata$TRUTH == 4] = 4
 	truth5[mydata$TRUTH == 5] = 5
 	truth5[mydata$TRUTH == 6] = 6
-	#truth5[mydata$TRUTH == "box"] = "load"
-	#truth5[mydata$TRUTH == "load_serial"] = "load"
-	#truth5[mydata$TRUTH == "toss"] = "dry"
-	#truth5[mydata$TRUTH == "inspect"] = "dry"
-	#truth5[mydata$TRUTH == "walk"] = "unknown"
-	#truth5[mydata$TRUTH == "fetch_wip"] = "load"
 	return(truth5)
 }
-## Some older data files used a different groudn truth labeling scheme
-# maketruth5 = function(mydata) {
-	# truth5 = mydata$TRUTH
-	# truth5[mydata$TRUTH == "Boxing"] = "Load"
-	# truth5[mydata$TRUTH == "Load_serial"] = "Load"
-	# truth5[mydata$TRUTH == "Toss"] = "Dry"
-	# truth5[mydata$TRUTH == "Inspect"] = "Dry"
-	# truth5[mydata$TRUTH == "Walk"] = "Unknown"
-	# return(truth5)
-# }
 
 runhmm=function(const=0,mydata,n=6,j=c(1:3),train_range = 1:length(mydata$TRUTH)) {
 	# Fit an HMM to some data, produce graphs and accuracy tables,
